@@ -1,0 +1,13 @@
+version: '3.4'
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: johto
+      POSTGRES_PASSWORD: boofar
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./sql/init.sql.d:/docker-entrypoint-initdb.d
+      - /tmp/johto-db/data:/var/lib/postgresql/data
