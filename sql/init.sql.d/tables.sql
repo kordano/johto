@@ -3,7 +3,7 @@ CREATE TABLE members
     id SERIAL,
     first_name TEXT,
     last_name TEXT,
-    email TEXT,
+    email TEXT UNIQUE,
     salt VARCHAR,
     passhash VARCHAR,
     PRIMARY KEY (id)
@@ -12,7 +12,7 @@ CREATE TABLE members
 CREATE TABLE customers
 (
     id SERIAL,
-    name TEXT,
+    name TEXT UNIQUE,
     contact TEXT,
     department TEXT,
     street TEXT,
