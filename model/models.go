@@ -18,11 +18,11 @@ const (
 
 // Member provides data model for sql member
 type Member struct {
-	ID        int
-	Firstname string
-	Lastname  string
-	Email     string
-	Password  string
+	ID        int `json:"_id"`
+	Firstname string `json:"firstName"`
+	Lastname  string `json:"lastName"`
+	Email     string `json:"email"`
+	Password  string `json:"password"`
 }
 
 // Task provides data model for sql task
