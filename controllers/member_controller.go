@@ -8,7 +8,7 @@ import (
 	"github.com/kordano/johto/store"
 )
 
-// CreateMember inst a new Member
+// CreateMember inserts a new Member
 func CreateMember(w http.ResponseWriter, r *http.Request) {
 	var dataResource MemberResource
 	err := json.NewDecoder(r.Body).Decode(&dataResource)
