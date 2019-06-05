@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 	"fmt"
+	"strconv"
+
+	"github.com/gorilla/mux"
 
 	"github.com/kordano/johto/store"
 	"github.com/kordano/johto/model"
@@ -70,4 +73,29 @@ func GetMembers(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(j)
+}
+
+// UpdateMember update an existing member
+// Handler for HTTP Put - "/members/{id}"
+func UpdateMember(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	var dataResource MemberResource
+	err = json.NewDecoder(r.Body).Decode(&dataResource)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	member := &dataResource.Data
+	member.ID = id
+	conn, err := store.GetConnection()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	conn.UpdateMember(member)
 }

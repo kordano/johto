@@ -9,5 +9,6 @@ import (
 func SetMemberRoutes(router *mux.Router) *mux.Router {
 	router.HandleFunc("/members", controllers.CreateMember).Methods("POST")
 	router.HandleFunc("/members", controllers.GetMembers).Methods("GET")
+	router.HandleFunc("/members/{id}", controllers.UpdateMember).Methods("PUT")
 	return router
 }
