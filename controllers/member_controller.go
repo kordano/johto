@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/kordano/johto/store"
+	"github.com/kordano/johto/model"
 )
 
 // CreateMember inserts a new Member
@@ -37,5 +38,36 @@ func CreateMember(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
+	w.Write(j)
+}
+
+// GetMembers retrieves all Members
+func GetMembers(w http.ResponseWriter, r *http.Request) {
+	conn, err := store.GetConnection()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	memberRefs, err := conn.GetMembers()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	members := make([]model.Member, len(memberRefs))
+
+	for i, v := range memberRefs {
+		members[i] = *v
+	}
+
+	j, err := json.Marshal(MembersResource{Data: members})
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(j)
 }
