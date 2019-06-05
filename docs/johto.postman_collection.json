@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "b3f9d177-161f-4979-8f48-7b7f268b28e9",
+		"name": "johto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "insert member",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": {\n\t\t\"firstName\": \"Alice\",\n\t\t\"lastName\": \"unknown\",\n\t\t\"email\": \"alice@umbrella.corp\",\n\t\t\"password\": \"zombie\"\n\t\t\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/members",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all members",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/members",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"members"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update member",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": {\n\t\t\"email\": \"alice@self.aware\",\n\t\t\"firstName\": \"Alice\",\n\t\t\"lastName\": \"unknown\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/members/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"members",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete member",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": {\n\t\t\"email\": \"alice@self.aware\",\n\t\t\"firstName\": \"Alice\",\n\t\t\"lastName\": \"unknown\"\n\t}\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/members/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"members",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

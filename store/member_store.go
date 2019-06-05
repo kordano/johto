@@ -49,7 +49,18 @@ func (conn Connection) GetMembers() ([]*model.Member, error) {
 
 // UpdateMember updates a Member given an id and member
 func (conn Connection) UpdateMember(member *model.Member) error {
-	_, err := conn.db.Exec("UPDATE members SET first_name=$1, last_name=$2, email=$3 where ID=$4", &member.Firstname, &member.Lastname, &member.Email, &member.ID)
+	_, err := conn.db.Exec("UPDATE members SET first_name=$1, last_name=$2, email=$3 WHERE id=$4", &member.Firstname, &member.Lastname, &member.Email, &member.ID)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	return err
+}
+
+
+// DeleteMember removes a member given an id
+func (conn Connection) DeleteMember(id int) error {
+	_, err := conn.db.Exec("DELETE FROM members WHERE id=$1", id)
 	if err != nil {
 		fmt.Println(err)
 		return err

@@ -97,5 +97,31 @@ func UpdateMember(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 		return
 	}
-	conn.UpdateMember(member)
+	err = conn.UpdateMember(member)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+}
+
+// DeleteMember removes existing member
+// Handler for HTTP Delete - "/members/{id}"
+func DeleteMember(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id, err := strconv.Atoi(vars["id"])
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	conn, err := store.GetConnection()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	err = conn.DeleteMember(id)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
