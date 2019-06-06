@@ -2,14 +2,14 @@ package store
 
 import (
 	"fmt"
-	model "github.com/kordano/johto/model"
-	)
 
+	model "github.com/kordano/johto/model"
+)
 
 // CreateMember creates new member in sql db
 func (conn Connection) CreateMember(member *model.Member) error {
 	result, err := conn.db.Exec("INSERT INTO members(first_name, last_name, email, salt, passhash) VALUES($1, $2, $3, $4, $5)",
-		&member.Firstname, &member.Lastname, &member.Email,"foobar", &member.Password)
+		&member.Firstname, &member.Lastname, &member.Email, "foobar", &member.Password)
 	if err != nil {
 		return err
 	}
@@ -56,7 +56,6 @@ func (conn Connection) UpdateMember(member *model.Member) error {
 	}
 	return err
 }
-
 
 // DeleteMember removes a member given an id
 func (conn Connection) DeleteMember(id int) error {

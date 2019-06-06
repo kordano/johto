@@ -1,11 +1,12 @@
 package store
 
-import ("database/sql"
-	_  "github.com/lib/pq")
+import (
+	"database/sql"
+)
 
 var connection *Connection
 
-// Store is primary sql db connection
+// Connection is primary sql db connection
 type Connection struct {
 	db *sql.DB
 }
