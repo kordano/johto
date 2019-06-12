@@ -1,6 +1,7 @@
 package store
 
 import (
+	"os"
 	"fmt"
 	"database/sql"
     _ "github.com/lib/pq"
@@ -17,7 +18,35 @@ type Connection struct {
 func connect() error {
 	var err error
 	var db *sql.DB
-	db, err = sql.Open("postgres", "postgres://johto:boofar@localhost:5433/johto?sslmode=disable")
+	postgresUser := os.Getenv("POSTGRES_USER")
+	postgresPassword := os.Getenv("POSTGRES_PASSWORD")
+	url := "postgres://"
+
+	if postgresUser != "" {
+		url += postgresUser
+	} else {
+		url += "johto"
+	}
+
+	url += ":"
+
+	if postgresPassword != "" {
+		url += postgresPassword
+	} else {
+		url += "boofar"
+	}
+
+	url += "@"
+
+	if postgresUser != "" {
+		url += "db:5432"
+	} else {
+		url += "localhost:5433"
+	}
+
+	url += "/johto?sslmode=disable"
+
+	db, err = sql.Open("postgres", url)
 
 	if err != nil {
 		return err

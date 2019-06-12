@@ -11,3 +11,15 @@ services:
     volumes:
       - ./sql/init.sql.d:/docker-entrypoint-initdb.d
       - /tmp/johto-db/data:/var/lib/postgresql/data
+  api:
+    build: ./
+    environment:
+      POSTGRES_USER: johto
+      POSTGRES_PASSWORD: boofar
+    restart: always
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "8080:8080"
