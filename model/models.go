@@ -37,14 +37,14 @@ type Task struct {
 
 // Customer provides data model for sql customer
 type Customer struct {
-	ID         int
-	Name       string
-	Contact    string
-	Department string
-	Street     string
-	City       string
-	Postal     string
-	Country    string
+	ID         int `json:"_id"`
+	Name       string `json: "name"`
+	Contact    string `json: "contact"`
+	Department string `json: "department"`
+	Street     string `json: "street"`
+	City       string `json: "city"`
+	Postal     string `json: "postal"`
+	Country    string `json: "country"`
 }
 
 // Document provides data model for sql document

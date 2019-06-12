@@ -1,7 +1,10 @@
 package store
 
 import (
+	"fmt"
 	"database/sql"
+    _ "github.com/lib/pq"
+
 )
 
 var connection *Connection
@@ -28,6 +31,7 @@ func GetConnection() (*Connection, error) {
 	if connection == nil {
 		err := connect()
 		if err != nil {
+			fmt.Println("db is not there")
 			return connection, err
 		}
 	}

@@ -6,10 +6,9 @@ import (
 )
 
 // SetMemberRoutes registers routes for member entity
-func SetMemberRoutes(router *mux.Router) *mux.Router {
+func SetMemberRoutes(router *mux.Router) {
 	router.HandleFunc("/members", controllers.CreateMember).Methods("POST")
 	router.HandleFunc("/members", controllers.GetMembers).Methods("GET")
 	router.HandleFunc("/members/{id}", controllers.UpdateMember).Methods("PUT")
 	router.HandleFunc("/members/{id}", controllers.DeleteMember).Methods("DELETE")
-	return router
 }

@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"net/http"
 	"fmt"
+	"net/http"
 	"strconv"
 
 	"github.com/gorilla/mux"
@@ -12,22 +12,24 @@ import (
 	"github.com/kordano/johto/model"
 )
 
-// CreateMember inserts a new Member
-func CreateMember(w http.ResponseWriter, r *http.Request) {
-	var dataResource MemberResource
+// CreateCustomer inserts a new Customer
+// Handler for POST - "/customers"
+func CreateCustomer(w http.ResponseWriter, r *http.Request) {
+	var dataResource CustomerResource
 	err := json.NewDecoder(r.Body).Decode(&dataResource)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	member := &dataResource.Data
+	customer := &dataResource.Data
 	conn, err := store.GetConnection()
+
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	err = conn.CreateMember(member)
+	err = conn.CreateCustomer(customer)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -36,82 +38,78 @@ func CreateMember(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 }
 
-// GetMembers retrieves all Members
-func GetMembers(w http.ResponseWriter, r *http.Request) {
+// GetCustomers retrieves all Customers
+// Handler for GET  - "/customers"
+func GetCustomers(w http.ResponseWriter, r *http.Request) {
 	conn, err := store.GetConnection()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	memberRefs, err := conn.GetMembers()
+	customerRefs, err := conn.GetCustomers()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	members := make([]model.Member, len(memberRefs))
-
-	for i, v := range memberRefs {
-		members[i] = *v
+	customers := make([]model.Customer, len(customerRefs))
+	for i, v := range customerRefs {
+		customers[i] = *v
 	}
 
-	j, err := json.Marshal(MembersResource{Data: members})
+	j, err := json.Marshal(CustomersResource{Data: customers})
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
 	w.WriteHeader(http.StatusOK)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(j)
 }
 
-// UpdateMember update an existing member
-// Handler for HTTP Put - "/members/{id}"
-func UpdateMember(w http.ResponseWriter, r *http.Request) {
+// UpdateCustomer updates an existing customer
+// Handler for PUT - "/customers/{id}"
+func UpdateCustomer(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	var dataResource MemberResource
+	var dataResource CustomerResource
 	err = json.NewDecoder(r.Body).Decode(&dataResource)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	member := &dataResource.Data
-	member.ID = id
+	customer := &dataResource.Data
+	customer.ID = id
 	conn, err := store.GetConnection()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	err = conn.UpdateMember(member)
+	err = conn.UpdateCustomer(customer)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 }
 
-// DeleteMember removes existing member
-// Handler for HTTP Delete - "/members/{id}"
-func DeleteMember(w http.ResponseWriter, r *http.Request) {
+// DeleteCustomer deletes an existing customer given an ID
+// Handler for DELETE - "/customers/{id}"
+func DeleteCustomer(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
 	conn, err := store.GetConnection()
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	err = conn.DeleteMember(id)
+	err = conn.DeleteCustomer(id)
 	if err != nil {
 		fmt.Println(err)
 		return
