@@ -5,7 +5,7 @@ MAINTAINER Konrad Kühne <konrad.kuehne@lambdaforge.io>
 RUN apk add git
 
 # Set the Current Working Directory inside the container
-WORKDIR $GOPATH/src/github.com/kordano/johto
+WORKDIR /go/app
 
 # Copy everything from the current directory to the PWD(Present Working Directory) inside the container
 COPY . .
