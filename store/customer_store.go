@@ -48,7 +48,8 @@ func (conn Connection) UpdateCustomer(customer *model.Customer) error {
 	return err
 }
 
-func (conn Connection) DeleteMember(id int) err {
+// DeleteCustomer deletes a Customer given an ID
+func (conn Connection) DeleteCustomer(id int) error {
 	_, err := conn.db.Exec(queries.CustomerDeleteQuery, id)
 	return err
 }
